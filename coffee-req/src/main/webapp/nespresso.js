@@ -138,13 +138,13 @@ $(document).ready(function() {
 					url: "/order",
 					data: JSON.stringify(requestData),
 					type: 'POST',
-					dataType: 'json',
+					dataType: 'text',
 					contentType: 'application/json',
-					success: function(){
+					success: function(data, textStatus, jqXHR){
 						alert('success');
 					},
-					error: function(){
-						alert('error');
+					error: function(jqXHR, textStatus, errorThrown){
+						alert('error: ' + jqXHR + '; status: ' + status + '; errorThrown: ' + errorThrown);
 					}
 				});
 			});

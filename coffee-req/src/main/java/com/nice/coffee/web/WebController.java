@@ -39,11 +39,19 @@ public class WebController
         UserOrder userOrder = UserOrder.parseJson(json);
         try{
             coffeeOrderHandler.handleUserOrder(userOrder);
-            response.getWriter().println("OK"); //todo this is obviously what gives the error in the client side. need to fix with the help of Irit. I got the feeling that the signature of the method will not to be changed to return a response object.
         }
-        catch (Throwable throwable){
+        catch (Throwable throwable)
+        {
             //todo return error status to the AJAX
+            log.error( "error handling user's order");
+    		response.setStatus(response.SC_INTERNAL_SERVER_ERROR);
+    		return;
+
         }
+//        response.getWriter().println("OK"); //todo this is obviously what gives the error in the client side. need to fix with the help of Irit. I got the feeling that the signature of the method will not to be changed to return a response object.
+        log.info( "finished handling user's order - OK");
+        response.setContentType("text/html"); 
+		response.setStatus(response.SC_OK);
 
     }
 
@@ -52,7 +60,6 @@ public class WebController
 			HttpServletResponse response) throws Exception{
 		log.info( "got to ping" );
 		response.getWriter().println("ping response: pong");
-
 	}
 	
 	@RequestMapping("/mail")//todo remove this after finish testing
