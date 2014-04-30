@@ -64,12 +64,10 @@ public class MailSenderImpl implements MailSender {
 		{
 		    Message message = new MimeMessage(session);
 		    message.setFrom(new InternetAddress("ohadr.developer@gmail.com", "ohadr.com Admin"));
+
 		    message.addRecipient(Message.RecipientType.TO,
 		    	     new InternetAddress( msg.getTo()[0] ));		//Spring's getTo returns String[]
 
-		    message.setRecipients(Message.RecipientType.TO, 
-					InternetAddress.parse( msg.getTo().toString() ));
-			
 		    message.setSubject( msg.getSubject() );
 			message.setText( msg.getText() );
 
