@@ -17,4 +17,20 @@ public class FinalizedOrder {
     public void setUserOrders(List<UserOrder> userOrders) {
         this.userOrders = userOrders;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder userOrdersString = new StringBuilder("{");
+        String comma = "";
+        for (UserOrder userOrder : userOrders) {
+            userOrdersString.append(comma);
+            userOrdersString.append(userOrder.toString());
+            comma = ", ";
+        }
+        userOrdersString.append("}");
+
+        return "FinalizedOrder{" +
+                "userOrders=" + userOrdersString +
+                '}';
+    }
 }
