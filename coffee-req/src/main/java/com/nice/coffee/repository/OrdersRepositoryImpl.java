@@ -11,7 +11,7 @@ import com.google.appengine.api.datastore.Entity;
 import com.nice.coffee.types.TimedUserOrder;
 import com.nice.coffee.types.UserOrder;
 
-@Component
+//@Component
 public class OrdersRepositoryImpl implements OrdersRepository
 {
 

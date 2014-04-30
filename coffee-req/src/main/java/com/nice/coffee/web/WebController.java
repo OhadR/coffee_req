@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.nice.coffee.backend.CoffeeOrderHandler;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,9 +24,28 @@ import com.nice.coffee.types.UserOrder;
 public class WebController 
 {
 	private static Logger log = Logger.getLogger(WebController.class);
-	
-	@Autowired
-	private MailSender mailSender;
+
+    @Autowired
+    CoffeeOrderHandler coffeeOrderHandler;
+
+    @Autowired
+	private MailSender mailSender; //todo remove this after finish testing
+
+    @RequestMapping(value = "/order", method = RequestMethod.POST)
+    protected void order(
+            @RequestBody String json,
+            HttpServletResponse response) throws Exception{
+        log.info( "New order recieved: " + json);
+        UserOrder userOrder = UserOrder.parseJson(json);
+        try{
+            coffeeOrderHandler.handleUserOrder(userOrder);
+            response.getWriter().println("OK"); //todo this is obviously what gives the error in the client side. need to fix with the help of Irit. I got the feeling that the signature of the method will not to be changed to return a response object.
+        }
+        catch (Throwable throwable){
+            //todo return error status to the AJAX
+        }
+
+    }
 
 	@RequestMapping("/ping")	
 	protected void ping(
@@ -35,7 +55,7 @@ public class WebController
 
 	}
 	
-	@RequestMapping("/mail")	
+	@RequestMapping("/mail")//todo remove this after finish testing
 	protected void mail(
 			@RequestParam("to") String to,
 			HttpServletRequest request,
@@ -52,13 +72,6 @@ public class WebController
 	}
 	
 
-	@RequestMapping(value = "/order", method = RequestMethod.POST)	
-	protected void order(
-			@RequestBody String userOrder,
-			HttpServletResponse response) throws Exception{
-		log.info( "got to order: " + userOrder );
-		response.getWriter().println("OK");
 
-	}
 
 }

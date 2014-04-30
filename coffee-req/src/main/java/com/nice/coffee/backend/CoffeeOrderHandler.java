@@ -15,17 +15,17 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-//@Component
+@Component
 public class CoffeeOrderHandler {
     private static Logger log = Logger.getLogger(CoffeeOrderHandler.class);
 
     private static final int FIXED_TOTAL_ORDER_SIZE = 10;
 
-/*    @Autowired
-    private OrdersRepository ordersRepository; 
-    
     @Autowired
-    private MailSender mailSender; 
+    private OrdersRepository ordersRepository;
+
+    @Autowired
+    private MailSender mailSender;
 
     public void handleUserOrder(UserOrder userOrder){
         log.info(MessageFormat.format("Handling new user order {0}.", userOrder));
@@ -80,5 +80,5 @@ public class CoffeeOrderHandler {
         }
 
         return finalizedOrder; //either a null or a group of totalOrderSize orders
-    }*/
+    }
 }

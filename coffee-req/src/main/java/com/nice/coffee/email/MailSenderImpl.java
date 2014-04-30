@@ -10,11 +10,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.PasswordAuthentication;
-import javax.mail.Session;
-import javax.mail.Transport;
+import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
@@ -65,8 +61,10 @@ public class MailSenderImpl implements MailSender {
 		    Message message = new MimeMessage(session);
 		    message.setFrom(new InternetAddress("ohadr.developer@gmail.com", "ohadr.com Admin"));
 
-		    message.addRecipient(Message.RecipientType.TO,
-		    	     new InternetAddress( msg.getTo()[0] ));		//Spring's getTo returns String[]
+            for (String to : msg.getTo()) {
+                Address emailAddress = new InternetAddress(to);
+                message.addRecipient(Message.RecipientType.TO, emailAddress);
+            }
 
 		    message.setSubject( msg.getSubject() );
 			message.setText( msg.getText() );

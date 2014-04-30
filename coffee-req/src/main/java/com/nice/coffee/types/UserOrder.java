@@ -1,5 +1,9 @@
 package com.nice.coffee.types;
 
+import org.codehaus.jackson.JsonParseException;
+import org.codehaus.jackson.map.ObjectMapper;
+
+import java.io.IOException;
 import java.util.Map;
 
 public class UserOrder 
@@ -7,6 +11,23 @@ public class UserOrder
 	private String email;
 	//maps coffee-name to quantity
 	private Map<String, Integer> order;
+
+    /**
+     * for destabilization
+     */
+    public UserOrder() {}
+
+
+    /**
+     *  Create UserOrder instance out of Json
+     *  Example for valid json:   {"email":"zbeniash@gmail.com","order":{"Dark Chocolate":1,"Caramel":2,"Bukeela":1}}
+     * @param json
+     */
+    static public UserOrder parseJson(String json) throws IOException {
+        ObjectMapper mapper = new ObjectMapper();
+        UserOrder userOrder = mapper.readValue(json, UserOrder.class);
+        return userOrder;
+    }
 
     public UserOrder(String email, Map<String, Integer> order) {
         this.email = email;
