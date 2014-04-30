@@ -42,7 +42,7 @@ public class OrdersRepositoryImpl implements OrdersRepository
 		return null;
 	}
 
-	public void removeUsersOrders(List<String> usersToRemove) {
+	public void removeUsersOrders(List<UserOrder> usersToRemove) {
 		// TODO Auto-generated method stub
 		
 	}

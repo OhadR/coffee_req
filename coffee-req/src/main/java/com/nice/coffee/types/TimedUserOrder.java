@@ -6,8 +6,8 @@ import java.util.Map;
 public class TimedUserOrder extends UserOrder implements Comparable {
 	private Date firstOrderDate;
 
-    public TimedUserOrder(String username, Map<String, Integer> order, Date firstOrderDate) {
-        super(username, order);
+    public TimedUserOrder(String email, Map<String, Integer> order, Date firstOrderDate) {
+        super(email, order);
         this.firstOrderDate = firstOrderDate;
     }
 

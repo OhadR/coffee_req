@@ -15,8 +15,7 @@ public class PingController
 	@RequestMapping(value = "/ping")	
 	protected void ping(
 			HttpServletRequest request,
-			HttpServletResponse response) throws Exception
-	{
+			HttpServletResponse response) throws Exception{
 		log.info( "got to ping" );
 		System.out.print( "pong" );
 		response.getWriter().println("ping response: pong");
