@@ -19,7 +19,7 @@ public class TimedUserOrder extends UserOrder implements Comparable {
         this.firstOrderDate = firstOrderDate;
     }
 
-    @Override
+
     public int compareTo(Object o) {
         if (! (o instanceof TimedUserOrder)){
             return 1;

@@ -10,7 +10,8 @@
 
   <!-- Configure java.util.logging -->
   <system-properties>
-    <property name="java.util.logging.config.file" value="WEB-INF/logging.properties"/>
+    <!--property name="java.util.logging.config.file" value="WEB-INF/logging.properties"/-->
+	<property name="java.util.logging.config.file" value="./log4j.properties"/> 
   </system-properties>
 
   <!--
@@ -27,5 +28,7 @@
     stale session data. For details, see
     http://code.google.com/appengine/docs/java/config/appconfig.html#Enabling_Sessions
   -->
+  
+	<sessions-enabled>true</sessions-enabled>  
 
 </appengine-web-app>
