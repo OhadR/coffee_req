@@ -54,7 +54,7 @@ public class WebController
 
 	@RequestMapping(value = "/order", method = RequestMethod.POST)	
 	protected void order(
-			@RequestBody UserOrder userOrder,
+			@RequestBody String userOrder,
 			HttpServletResponse response) throws Exception{
 		log.info( "got to order: " + userOrder );
 		response.getWriter().println("OK");
