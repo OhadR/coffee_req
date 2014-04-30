@@ -6,7 +6,7 @@ import com.nice.coffee.types.TimedUserOrder;
 import com.nice.coffee.types.UserOrder;
 
 
-public interface CoffeeRepository 
+public interface OrdersRepository
 {
 	/**
 	 * 

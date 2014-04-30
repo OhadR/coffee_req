@@ -9,20 +9,20 @@ import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.nice.coffee.types.TimedUserOrder;
 import com.nice.coffee.types.UserOrder;
 
-public class CoffeeRepositoryImpl implements CoffeeRepository 
+public class OrdersRepositoryImpl implements OrdersRepository
 {
-	private static Logger log = Logger.getLogger(CoffeeRepositoryImpl.class);
+	private static Logger log = Logger.getLogger(OrdersRepositoryImpl.class);
 
 	private DatastoreService datastore;
 
-	public CoffeeRepositoryImpl()
+	public OrdersRepositoryImpl()
 	{
 		datastore = DatastoreServiceFactory.getDatastoreService();
 	}
 
-	public void updateUserOrder(UserOrder userOrder) {
+	public UserOrder updateUserOrder(UserOrder userOrder) {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
 
 	public List<TimedUserOrder> getAllUsersOrder() {
