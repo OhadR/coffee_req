@@ -1,11 +1,12 @@
 package com.nice.coffee.coffee;
 
 import com.nice.coffee.types.Coffee;
+import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
+@Component
 public class CoffeeProviderLocalImpl implements CoffeeProvider {
 
     private static final Map<String, Coffee> allCoffeeTypes;
