@@ -5,20 +5,27 @@ import com.nice.coffee.repository.OrdersRepository;
 import com.nice.coffee.types.FinalizedOrder;
 import com.nice.coffee.types.TimedUserOrder;
 import com.nice.coffee.types.UserOrder;
+
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.text.MessageFormat;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+//@Component
 public class CoffeeOrderHandler {
     private static Logger log = Logger.getLogger(CoffeeOrderHandler.class);
 
     private static final int FIXED_TOTAL_ORDER_SIZE = 10;
 
-    private OrdersRepository ordersRepository; //todo auto wire
-    private MailSender mailSender; //todo auto wire
+/*    @Autowired
+    private OrdersRepository ordersRepository; 
+    
+    @Autowired
+    private MailSender mailSender; 
 
     public void handleUserOrder(UserOrder userOrder){
         log.info(MessageFormat.format("Handling new user order {0}.", userOrder));
@@ -39,7 +46,7 @@ public class CoffeeOrderHandler {
     }
 
     private FinalizedOrder tryToFinalizeOrder() {
-        log.info(MessageFormat.format("Trying to finalize order."));
+        log.info("Trying to finalize order.");
         List<TimedUserOrder> allUsersOrdersList = ordersRepository.getAllUsersOrder();
         Collections.sort(allUsersOrdersList);
         return tryToFinalizeOrder(allUsersOrdersList, FIXED_TOTAL_ORDER_SIZE);
@@ -73,5 +80,5 @@ public class CoffeeOrderHandler {
         }
 
         return finalizedOrder; //either a null or a group of totalOrderSize orders
-    }
+    }*/
 }

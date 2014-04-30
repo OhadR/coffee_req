@@ -19,9 +19,9 @@ import javax.mail.internet.MimeMessage;
 import org.apache.log4j.Logger;
 import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
-import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Component;
 
-@Controller
+@Component
 public class MailSenderImpl implements MailSender {
 
 	private static Logger log = Logger.getLogger(MailSenderImpl.class);
@@ -65,10 +65,10 @@ public class MailSenderImpl implements MailSender {
 		    message.addRecipient(Message.RecipientType.TO,
 		    	     new InternetAddress( msg.getTo()[0] ));		//Spring's getTo returns String[]
 
-/*		    message.setRecipients(Message.RecipientType.TO, 
+		    message.setRecipients(Message.RecipientType.TO, 
 					InternetAddress.parse( msg.getTo().toString() ));
 			
-*/		    message.setSubject( msg.getSubject() );
+		    message.setSubject( msg.getSubject() );
 			message.setText( msg.getText() );
 
 			Transport.send(message);

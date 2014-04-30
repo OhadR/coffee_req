@@ -3,6 +3,7 @@ package com.nice.coffee.repository;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.springframework.stereotype.Component;
 
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
@@ -10,6 +11,7 @@ import com.google.appengine.api.datastore.Entity;
 import com.nice.coffee.types.TimedUserOrder;
 import com.nice.coffee.types.UserOrder;
 
+@Component
 public class OrdersRepositoryImpl implements OrdersRepository
 {
 
@@ -19,11 +21,11 @@ public class OrdersRepositoryImpl implements OrdersRepository
 
 	private static final String USER_DB_KIND = "User";
 
-	private DatastoreService datastore;
+//	private DatastoreService datastore;
 
 	public OrdersRepositoryImpl()
 	{
-		datastore = DatastoreServiceFactory.getDatastoreService();
+//		datastore = DatastoreServiceFactory.getDatastoreService();
 	}
 
 	public UserOrder updateUserOrder(UserOrder userOrder) {
@@ -32,7 +34,7 @@ public class OrdersRepositoryImpl implements OrdersRepository
 		dbUser.setProperty(USERNAME_NAME, userOrder.getEmail());
 		dbUser.setProperty(ORDER_NAME, userOrder.getOrder());
 
-		datastore.put(dbUser);
+//		datastore.put(dbUser);
 		
 		return userOrder;		//TODO
 	}

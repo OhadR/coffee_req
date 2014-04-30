@@ -29,12 +29,11 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 		<param-value>/WEB-INF/spring-servlet.xml</param-value>
 	</context-param>
  
-	<!-- listener>
+	<listener>
 		<listener-class>
         	org.springframework.web.context.ContextLoaderListener
 		</listener-class>
 	</listener>
-	< -->
 
 
 	<servlet>

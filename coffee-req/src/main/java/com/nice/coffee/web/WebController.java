@@ -10,29 +10,31 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.nice.coffee.email.MailSender;
 import com.nice.coffee.types.UserOrder;
 
+
+
+
 @Controller
-public class PingController 
+public class WebController 
 {
-	private static Logger log = Logger.getLogger(PingController.class);
+	private static Logger log = Logger.getLogger(WebController.class);
 	
 	@Autowired
 	private MailSender mailSender;
 
-	@RequestMapping(value = "/ping")	
+	@RequestMapping("/ping")	
 	protected void ping(
-			HttpServletRequest request,
 			HttpServletResponse response) throws Exception{
 		log.info( "got to ping" );
-		System.out.print( "pong" );
 		response.getWriter().println("ping response: pong");
 
 	}
 	
-/*	@RequestMapping(value = "/mail")	
+	@RequestMapping("/mail")	
 	protected void mail(
 			HttpServletRequest request,
 			HttpServletResponse response) throws Exception
@@ -45,6 +47,15 @@ public class PingController
 		mailSender.sendOrderConfirmationEmail(userOrder);
 		response.getWriter().println("mail sent");
 
-	}*/
+	}
+
+	@RequestMapping("/order")	
+	protected void order(
+			@RequestParam("order") String userOrder,
+			HttpServletResponse response) throws Exception{
+		log.info( "got to order: " + userOrder );
+		response.getWriter().println("OK");
+
+	}
 
 }
