@@ -1,0 +1,15 @@
+.product {
+            float: left;
+        }
+#mainContainer {
+	height: 400px;	
+}
+
+.emptyEmail {
+	color: red;
+	display: none;
+}
+
+.capName {
+	align: center;
+}

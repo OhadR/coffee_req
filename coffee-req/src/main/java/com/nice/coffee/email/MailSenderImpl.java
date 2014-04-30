@@ -88,7 +88,7 @@ public class MailSenderImpl implements MailSender {
 
 	public void sendOrderConfirmationEmail(UserOrder userOrder) 
 	{
-		SimpleMailMessage msg = new SimpleMailMessage();
+/*		SimpleMailMessage msg = new SimpleMailMessage();
 		msg.setTo(userOrder.getEmail());
 		msg.setSubject("Order Confirmation");
 
@@ -101,12 +101,12 @@ public class MailSenderImpl implements MailSender {
 		}
 
 		msg.setText("this is a confirmation for your order:\n" + buffer.toString());
-		send(msg);
+		send(msg);*/
 	}
 
 	public void sendFinalizedOrder(FinalizedOrder finalizedOrder) 
 	{
-		SimpleMailMessage msg = new SimpleMailMessage();
+/*		SimpleMailMessage msg = new SimpleMailMessage();
 		
 		List<UserOrder> usersOrders = finalizedOrder.getUserOrders();
 		String[] tos = new String[usersOrders.size()];
@@ -120,7 +120,7 @@ public class MailSenderImpl implements MailSender {
 //		msg.setTo(userOrder.getEmail());
 		msg.setSubject("Order is Ready");
 		msg.setText("this is a message to let you know that there are enough orders so you can purchase coffee!");
-		send(msg);
+		send(msg);*/
 	}
 
 }

@@ -10,11 +10,11 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.nice.coffee.email.MailSender;
 import com.nice.coffee.types.UserOrder;
-
 
 
 
@@ -48,8 +48,9 @@ public class WebController
 		response.getWriter().println("mail sent");
 
 	}
+	
 
-	@RequestMapping("/order")	
+	@RequestMapping(value = "/order", method = RequestMethod.POST)	
 	protected void order(
 			@RequestParam("order") String userOrder,
 			HttpServletResponse response) throws Exception{
