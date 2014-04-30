@@ -2,9 +2,9 @@ package com.nice.coffee.types;
 
 public class Coffee {
     private String name;
-    private float price;
+    private double price;
 
-    public Coffee(String name, float price) {
+    public Coffee(String name, double price) {
         this.name = name;
         this.price = price;
     }
@@ -17,11 +17,11 @@ public class Coffee {
         this.name = name;
     }
 
-    public float getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(float price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 }

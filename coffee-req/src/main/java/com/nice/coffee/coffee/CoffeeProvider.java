@@ -6,7 +6,6 @@ import java.util.List;
 
 public interface CoffeeProvider {
 
-    public float getCoffeePrice(String coffeeName);
+    public double getCoffeePrice(String coffeeName) throws UnknownCoffeeException;
 
-    public List<Coffee> getAllCoffeeList();
 }
