@@ -28,8 +28,6 @@ public class WebController
     @Autowired
     CoffeeOrderHandler coffeeOrderHandler;
 
-    @Autowired
-	private MailSender mailSender; //todo remove this after finish testing
 
     @RequestMapping(value = "/order", method = RequestMethod.POST)
     protected void order(
@@ -43,7 +41,7 @@ public class WebController
         catch (Throwable throwable)
         {
             //todo return error status to the AJAX
-            log.error( "error handling user's order");
+            log.error( "error handling user's order", throwable);
     		response.setStatus(response.SC_INTERNAL_SERVER_ERROR);
     		return;
 
@@ -62,23 +60,4 @@ public class WebController
 		response.getWriter().println("ping response: pong");
 	}
 	
-	@RequestMapping("/mail")//todo remove this after finish testing
-	protected void mail(
-			@RequestParam("to") String to,
-			HttpServletRequest request,
-			HttpServletResponse response) throws Exception
-	{
-		log.info( "sending email" );
-		Map<String, Integer> order = new HashMap<String, Integer>();
-		order.put("A", 1);
-		order.put("B", 2);
-		UserOrder userOrder = new UserOrder(to, order);
-		mailSender.sendOrderConfirmationEmail(userOrder);
-		response.getWriter().println("mail sent");
-
-	}
-	
-
-
-
 }

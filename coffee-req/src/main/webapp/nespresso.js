@@ -141,7 +141,7 @@ $(document).ready(function() {
 					dataType: 'text',
 					contentType: 'application/json',
 					success: function(data, textStatus, jqXHR){
-						alert('success');
+						alert('confirmed');
 					},
 					error: function(jqXHR, textStatus, errorThrown){
 						alert('error: ' + jqXHR + '; status: ' + status + '; errorThrown: ' + errorThrown);
