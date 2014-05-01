@@ -9,7 +9,6 @@ import org.springframework.stereotype.Component;
 import java.util.*;
 import java.util.Map.Entry;
 
-@Component
 public class OrdersRepositoryInMemoryImpl implements OrdersRepository {
 	private static Logger log = Logger.getLogger(OrdersRepositoryInMemoryImpl.class);
     final private static Map<String, TimedUserOrder> inMemoryCache = new HashMap<String, TimedUserOrder>();

@@ -13,13 +13,13 @@ import com.google.appengine.api.datastore.*;
 import com.nice.coffee.types.TimedUserOrder;
 import com.nice.coffee.types.UserOrder;
 
-//@Component
+@Component
 public class OrdersRepositoryImpl implements OrdersRepository
 {
 
 	private static Logger log = Logger.getLogger(OrdersRepositoryImpl.class);
 	private static final String USERNAME_NAME = "username";
-	private static final String ORDER__DATE_NAME = "Order";
+	private static final String ORDER_DATE_NAME = "Order";
 
 	private static final String USER_DB_KIND = "User";
 
@@ -32,7 +32,7 @@ public class OrdersRepositoryImpl implements OrdersRepository
 
 	public UserOrder updateUserOrder(UserOrder userOrder) 
 	{
-		log.info("storing the user's order: " + userOrder);
+		log.debug("storing the user's order: " + userOrder);
 		
 		Entity dbUser = getUserEntity( userOrder.getEmail() );
 		
@@ -50,7 +50,7 @@ public class OrdersRepositoryImpl implements OrdersRepository
 		{
 			dbUser.setProperty(entry.getKey(), entry.getValue());
 		}
-		dbUser.setProperty(ORDER__DATE_NAME, new Date( System.currentTimeMillis()) );
+		dbUser.setProperty(ORDER_DATE_NAME, new Date( System.currentTimeMillis()) );
 
 		datastore.put(dbUser);
 		
@@ -59,24 +59,36 @@ public class OrdersRepositoryImpl implements OrdersRepository
 
 	public List<TimedUserOrder> getAllUsersOrder() 
 	{
-		return new ArrayList<TimedUserOrder>();
-		
-/*		Key userKey = KeyFactory.createKey(USER_DB_KIND, username);
-		Entity entity;
-		try 
-		{
-			entity = datastore.get(userKey);
-			log.debug("got entity of " + username + ": " + entity);
-		} 
-		catch (EntityNotFoundException e) 
-		{
-			log.error("entity of " + username + " not found");
-			throw new UsernameNotFoundException(username, e);
-		}
-*/	}
+		log.debug("getAllUserOrder");
+		Query q = new Query(USER_DB_KIND);
+		PreparedQuery pq = datastore.prepare(q);  
 
-	public void removeUsersOrders(List<UserOrder> usersToRemove) {
-		// TODO Auto-generated method stub
+		List<TimedUserOrder> retVal = new ArrayList<TimedUserOrder>();
+		
+		StringBuffer sb = new StringBuffer();
+		for (Entity result : pq.asIterable()) {   
+			String username = (String) result.getProperty(USERNAME_NAME);   
+			Date date = (Date) result.getProperty(ORDER_DATE_NAME);
+			Map<String, Integer> order = new HashMap<String, Integer>();
+			//TODO: insert items from DS to order obj.
+			TimedUserOrder tuo = new TimedUserOrder(username, order, date);
+			retVal.add(tuo);
+			sb.append(username + " : " + date );
+		}
+		
+		log.info( sb.toString() );
+
+		return retVal;
+	}
+
+	public void removeUsersOrders(List<UserOrder> usersToRemove) 
+	{
+		for(UserOrder userOrder : usersToRemove)
+		{
+			Key userKey = KeyFactory.createKey(USER_DB_KIND, userOrder.getEmail());
+			log.info( "deleting user " + userOrder.getEmail());
+			datastore.delete(userKey);
+		}
 		
 	}
 	
