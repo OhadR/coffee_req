@@ -2,11 +2,16 @@ package com.nice.coffee.repository;
 
 import com.nice.coffee.types.TimedUserOrder;
 import com.nice.coffee.types.UserOrder;
+
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Component;
 
 import java.util.*;
+import java.util.Map.Entry;
 
+@Component
 public class OrdersRepositoryInMemoryImpl implements OrdersRepository {
+	private static Logger log = Logger.getLogger(OrdersRepositoryInMemoryImpl.class);
     final private static Map<String, TimedUserOrder> inMemoryCache = new HashMap<String, TimedUserOrder>();
 
     @Override
@@ -41,4 +46,17 @@ public class OrdersRepositoryInMemoryImpl implements OrdersRepository {
             inMemoryCache.remove(userOrder.getEmail());
         }
     }
+    
+    
+	@Override
+	public void logRepositryContent() 
+	{
+    	StringBuffer sb = new StringBuffer();
+		for(Entry<String, TimedUserOrder> entry : inMemoryCache.entrySet())
+    	{
+    		sb.append(entry.getKey() + " : " + entry.getValue());
+    		sb.append("\n");
+    	}
+		log.info(sb.toString());
+	}
 }

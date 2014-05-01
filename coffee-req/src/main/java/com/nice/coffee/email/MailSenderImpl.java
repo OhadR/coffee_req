@@ -131,9 +131,7 @@ public class MailSenderImpl implements MailSender {
 			i++;
 		}
 
-		msg.setTo(tos);
-		send(msg);
-		
+		msg.setTo(tos);	
 		
 		msg.setSubject("Nicepresso final order found!");
         StringBuffer messageBodyBuffer = new StringBuffer();

@@ -2,6 +2,7 @@ package com.nice.coffee.repository;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -12,7 +13,7 @@ import com.google.appengine.api.datastore.*;
 import com.nice.coffee.types.TimedUserOrder;
 import com.nice.coffee.types.UserOrder;
 
-@Component
+//@Component
 public class OrdersRepositoryImpl implements OrdersRepository
 {
 
@@ -33,8 +34,17 @@ public class OrdersRepositoryImpl implements OrdersRepository
 	{
 		log.info("storing the user's order: " + userOrder);
 		
-		Entity dbUser = new Entity(USER_DB_KIND, userOrder.getEmail());		//the username is the key
+		Entity dbUser = getUserEntity( userOrder.getEmail() );
+		
+		//create a new one if does not exist:
+		if( dbUser == null )
+		{
+			log.info("creating a new entity for user " + userOrder.getEmail());
+			
+			dbUser = new Entity(USER_DB_KIND, userOrder.getEmail());		//the username is the key
+		}
 
+		
 		dbUser.setProperty(USERNAME_NAME, userOrder.getEmail());
 		for(Map.Entry<String, Integer> entry : userOrder.getOrder().entrySet())
 		{
@@ -70,4 +80,44 @@ public class OrdersRepositoryImpl implements OrdersRepository
 		
 	}
 	
+	private UserOrder getUserEntry(String username)
+	{
+		Entity entity = getUserEntity(username);
+
+		UserOrder retVal = new UserOrder();
+		retVal.setEmail(username);
+		Map<String, Object> properties = entity.getProperties();
+		Map<String, Integer> order = new HashMap<String, Integer>();
+		for(Map.Entry<String, Object> entry : properties.entrySet())
+		{
+			log.info("putting " + entry.getKey() + " : " + (Integer) entry.getValue());
+			order.put(entry.getKey(), (Integer) entry.getValue());
+		}
+		retVal.setOrder(order);
+		return retVal;
+	}
+
+	private Entity getUserEntity(String username)
+	{
+		Key userKey = KeyFactory.createKey(USER_DB_KIND, username);
+		Entity entity;
+		try 
+		{
+			entity = datastore.get(userKey);
+			log.debug("got entity of " + username + ": " + entity);
+		} 
+		catch (EntityNotFoundException e) 
+		{
+			log.error("entity of " + username + " not found");
+			entity = null;
+		}
+
+		return entity;
+	}
+
+	@Override
+	public void logRepositryContent() {
+		// TODO Auto-generated method stub
+		
+	}
 }

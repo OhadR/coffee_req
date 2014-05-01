@@ -18,4 +18,6 @@ public interface OrdersRepository
 	public List<TimedUserOrder> getAllUsersOrder();
 
     public void removeUsersOrders(List<UserOrder> usersToRemove);
+    
+    public void logRepositryContent();
 }

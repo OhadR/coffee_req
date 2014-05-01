@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.nice.coffee.email.MailSender;
+import com.nice.coffee.repository.OrdersRepository;
 import com.nice.coffee.types.UserOrder;
 
 @Controller
@@ -21,7 +22,10 @@ public class TestController
 	private static Logger log = Logger.getLogger(TestController.class);
 
     @Autowired
-	private MailSender mailSender; 
+	private MailSender mailSender;
+    
+    @Autowired
+    private OrdersRepository ordersRepository;
 
 	@RequestMapping("/test/mail")
 	protected void mail(
@@ -37,6 +41,15 @@ public class TestController
 		mailSender.sendOrderConfirmationEmail(userOrder);
 		response.getWriter().println("mail sent");
 
+	}
+	
+	@RequestMapping("/test/logDb")
+	protected void logDB(
+			HttpServletRequest request,
+			HttpServletResponse response) throws Exception
+	{
+		log.info( "logging DB" );
+		ordersRepository.logRepositryContent();
 	}
 
 }

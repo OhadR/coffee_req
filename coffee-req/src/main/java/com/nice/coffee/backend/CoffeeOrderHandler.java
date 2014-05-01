@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.text.MessageFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -56,12 +57,13 @@ public class CoffeeOrderHandler {
         if (ordersList.isEmpty() || totalOrderSize <= 0 ){
             return null;
         }
-        UserOrder firstUserOrder = ordersList.get(0);
+        final UserOrder firstUserOrder = ordersList.get(0);
         int firstOrderSize = firstUserOrder.getTotalSize();
         if (totalOrderSize == firstOrderSize){
             log.info(MessageFormat.format("Creating group and adding user {0} ordering {1} coffee pieces.",
                     firstUserOrder.getEmail(), firstOrderSize));
-            return new FinalizedOrder(Arrays.asList(firstUserOrder));
+
+            return new FinalizedOrder(new ArrayList<UserOrder>() {{add(firstUserOrder);}});
         }
 
         //try to find group that can fit the first order
