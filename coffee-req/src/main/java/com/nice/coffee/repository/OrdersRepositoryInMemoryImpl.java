@@ -6,7 +6,6 @@ import org.springframework.stereotype.Component;
 
 import java.util.*;
 
-@Component
 public class OrdersRepositoryInMemoryImpl implements OrdersRepository {
     final private static Map<String, TimedUserOrder> inMemoryCache = new HashMap<String, TimedUserOrder>();
 
