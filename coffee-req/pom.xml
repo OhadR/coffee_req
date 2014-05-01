@@ -13,7 +13,7 @@
 		<worldtime.spring.version>3.1.0.RELEASE</worldtime.spring.version>
 		<ohadr.spring.security.version>3.1.0.RELEASE</ohadr.spring.security.version>
 		<appengine.target.version>1.9.3</appengine.target.version>
-   	</properties>
+	</properties>
 
 
 	<dependencies>
@@ -51,7 +51,7 @@
 			<version>${worldtime.spring.version}</version>
 		</dependency>
 
-		<dependency>
+		<!-- dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-core</artifactId>
 			<version>${ohadr.spring.security.version}</version>
@@ -67,7 +67,7 @@
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-web</artifactId>
 			<version>${ohadr.spring.security.version}</version>
-		</dependency>
+		</dependency-->
 
 
 
@@ -83,11 +83,11 @@
 			<version>1.2</version>
 		</dependency>
 
-		<dependency>
+		<!-- dependency>
 			<groupId>com.google.code.geocoder-java</groupId>
 			<artifactId>geocoder-java</artifactId>
 			<version>0.15</version>
-		</dependency>
+		</dependency-->
 
 		<dependency>
 			<groupId>org.codehaus.jackson</groupId>
@@ -123,6 +123,16 @@
 							<targetPath>WEB-INF</targetPath>
 						</resource>
 					</webResources>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.1</version>
+				<configuration>
+					<source>1.7</source>
+					<target>1.7</target>
 				</configuration>
 			</plugin>
 
