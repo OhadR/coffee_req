@@ -23,6 +23,10 @@
 	<mvc:annotation-driven />
 	<mvc:default-servlet-handler />
 
+	<!-- dont use debug! https://jira.spring.io/browse/SEC-1885 >
+	<sec:debug>
+	-->
+	
 	<sec:http pattern="/login/**" security="none" />
 	<sec:http pattern="/forgotPasswordPage" security="none" />
 	<sec:http pattern="/forgotPassword" security="none" />
@@ -30,15 +34,12 @@
 	<sec:http pattern="/createAccount" security="none" />
 
 	<sec:http authentication-manager-ref="authenticationManager">
-		<sec:intercept-url pattern="/secure/**" access="ROLE_USER" />
+		<sec:intercept-url pattern="/secured/**" access="ROLE_USER" />
 		<sec:anonymous />
 
 		<sec:form-login login-page="/login/login.htm"
 			authentication-success-handler-ref="authenticationSuccessHandler"
 			authentication-failure-handler-ref="authenticationFailureHandler" />
-
-		<!-- sec:remember-me data-source-ref="dataSource" user-service-ref="userDetailsService"/ -->
-
 
 	</sec:http>
 
@@ -67,7 +68,7 @@
 	<!-- decide how you wanna work: in-mem repo, or jdbc impl: -->
 	<!-- bean class="com.ohadr.auth_flows.mocks.InMemoryAuthenticationAccountRepositoryImpl" / -->
 	<bean id="userDetailsService"
-		class="com.ohadr.auth_flows.core.gae.gae.GAEAuthenticationAccountRepositoryImpl" />
+		class="com.ohadr.auth_flows.core.gae.GAEAuthenticationAccountRepositoryImpl" />
 
 	<!--bean class="com.ohadr.auth_flows.core.jdbc.JdbcAuthenticationPolicyRepositoryImpl" / -->
 	<bean

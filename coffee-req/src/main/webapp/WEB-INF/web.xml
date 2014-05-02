@@ -26,11 +26,11 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 	</context-param>
  
 	<!-- if we work with Spring-security, we already have a listener -->
-	<listener>
+	<!-- listener>
 		<listener-class>
         	org.springframework.web.context.ContextLoaderListener
 		</listener-class>
-	</listener>
+	</listener-->
 
 
 	<servlet>

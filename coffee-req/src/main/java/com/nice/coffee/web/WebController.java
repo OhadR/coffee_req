@@ -60,4 +60,10 @@ public class WebController
 		response.getWriter().println("ping response: pong");
 	}
 	
+	@RequestMapping("/secured/ping")	
+	protected void securedPing(
+			HttpServletResponse response) throws Exception{
+		log.info( "got to secured ping" );
+		response.getWriter().println("secured ping response: pong");
+	}
 }
