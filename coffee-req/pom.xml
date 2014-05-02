@@ -26,6 +26,18 @@
 			<version>${appengine.target.version}</version>
 		</dependency>
 
+	    <dependency>
+			<groupId>com.ohadr</groupId>
+			<artifactId>authentication-flows</artifactId>
+			<version>1.5.1-SNAPSHOT</version>
+			<exclusions>
+			    <exclusion>
+					<groupId>javax.mail</groupId>
+					<artifactId>mail</artifactId>
+			    </exclusion>
+			</exclusions>
+		</dependency>
+				
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>servlet-api</artifactId>
@@ -51,7 +63,7 @@
 			<version>${worldtime.spring.version}</version>
 		</dependency>
 
-		<!-- dependency>
+		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-core</artifactId>
 			<version>${ohadr.spring.security.version}</version>
@@ -67,7 +79,7 @@
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-web</artifactId>
 			<version>${ohadr.spring.security.version}</version>
-		</dependency-->
+		</dependency>
 
 
 
