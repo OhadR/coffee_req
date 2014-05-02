@@ -67,7 +67,7 @@
 	<!-- decide how you wanna work: in-mem repo, or jdbc impl: -->
 	<!-- bean class="com.ohadr.auth_flows.mocks.InMemoryAuthenticationAccountRepositoryImpl" / -->
 	<bean id="userDetailsService"
-		class="com.ohadr.dictionary.gae.GAEAuthenticationAccountRepositoryImpl" />
+		class="com.ohadr.auth_flows.core.gae.gae.GAEAuthenticationAccountRepositoryImpl" />
 
 	<!--bean class="com.ohadr.auth_flows.core.jdbc.JdbcAuthenticationPolicyRepositoryImpl" / -->
 	<bean
@@ -75,6 +75,6 @@
 
 
 
-	<bean id="mailSender" class="com.ohadr.dictionary.gae.GAEMailSenderImpl" />
+	<bean id="mailSender" class="com.ohadr.auth_flows.core.gae.GAEMailSenderImpl" />
 
 </beans>
