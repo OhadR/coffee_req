@@ -24,8 +24,11 @@
 	<mvc:default-servlet-handler />
 
 	<!-- dont use debug! https://jira.spring.io/browse/SEC-1885 >
-	<sec:debug>
-	-->
+	<sec:debug />
+	 -->
+	 
+	 <mvc:resources mapping="/secured/**" location="/secured_resources/" />
+	 
 	
 	<sec:http pattern="/login/**" security="none" />
 	<sec:http pattern="/forgotPasswordPage" security="none" />
@@ -34,7 +37,7 @@
 	<sec:http pattern="/createAccount" security="none" />
 
 	<sec:http authentication-manager-ref="authenticationManager">
-		<sec:intercept-url pattern="/secured/**" access="ROLE_USER" />
+	    <sec:intercept-url pattern="/secured/**" access="ROLE_USER" />
 		<sec:anonymous />
 
 		<sec:form-login login-page="/login/login.htm"
