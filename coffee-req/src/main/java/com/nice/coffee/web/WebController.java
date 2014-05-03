@@ -1,21 +1,18 @@
 package com.nice.coffee.web;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.nice.coffee.backend.CoffeeOrderHandler;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 
-import com.nice.coffee.email.MailSender;
 import com.nice.coffee.types.UserOrder;
 
 
@@ -66,4 +63,16 @@ public class WebController
 		log.info( "got to secured ping" );
 		response.getWriter().println("secured ping response: pong");
 	}
+
+	@RequestMapping("/getAuthenticatedUser")	
+	protected void getAuthenticatedUser(
+			HttpServletResponse response) throws Exception
+	{
+		log.info( "getAuthenticatedUser()" );
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String name = auth.getName(); //get logged in username
+		log.info( "logged in user: " + name );
+		response.getWriter().println(name);
+	}
+
 }
