@@ -12,11 +12,21 @@
 </head>
 <body>
 <div>	
+<%
+	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+	String name = auth.getName(); //get logged in username
+
+//    UserService userService = UserServiceFactory.getUserService();
+//    User user = userService.getCurrentUser();
+%>
+<p>Logged in as <%= name %>. (You can <a href="www.ohadr.com">logout</a>.)</p>
+	
+	
 			<label>E-mail: </label><br />
 			<input id="email" class="k-textbox" type="text"><br />
 			<label class="emptyEmail">Please fill in a valid email</label><br /><br />
 			<button class="k-button" id="submit">Submit</button><br /><br />
-		</div>
+</div>
 		
     <div id="mainContainer" >
 		<h3>Choose Your Flavor: </h3>
