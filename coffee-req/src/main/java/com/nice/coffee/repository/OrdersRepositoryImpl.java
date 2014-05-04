@@ -19,7 +19,7 @@ public class OrdersRepositoryImpl implements OrdersRepository
 
 	private static Logger log = Logger.getLogger(OrdersRepositoryImpl.class);
 	private static final String USERNAME_NAME = "username";
-	private static final String ORDER_DATE_NAME = "Order";
+	private static final String ORDER_DATE_NAME = "order-date";
 
 	private static final String USER_DB_KIND = "User";
 
@@ -92,7 +92,8 @@ public class OrdersRepositoryImpl implements OrdersRepository
 		
 	}
 	
-	private UserOrder getUserEntry(String username)
+	@Override
+	public UserOrder getUserEntry(String username)
 	{
 		Entity entity = getUserEntity(username);
 
@@ -102,8 +103,16 @@ public class OrdersRepositoryImpl implements OrdersRepository
 		Map<String, Integer> order = new HashMap<String, Integer>();
 		for(Map.Entry<String, Object> entry : properties.entrySet())
 		{
-			log.info("putting " + entry.getKey() + " : " + (Integer) entry.getValue());
-			order.put(entry.getKey(), (Integer) entry.getValue());
+			if(entry.getKey().equals(USERNAME_NAME) || entry.getKey().equals(ORDER_DATE_NAME))
+			{
+				//skip
+				continue;
+			}
+			Object valObj = entry.getValue();
+			Integer val = new Integer(valObj.toString());
+
+			log.info("putting " + entry.getKey() + " : " + val);
+			order.put(entry.getKey(), val);
 		}
 		retVal.setOrder(order);
 		return retVal;
@@ -127,9 +136,4 @@ public class OrdersRepositoryImpl implements OrdersRepository
 		return entity;
 	}
 
-	@Override
-	public void logRepositryContent() {
-		// TODO Auto-generated method stub
-		
-	}
 }

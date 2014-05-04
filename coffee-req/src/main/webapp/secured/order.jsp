@@ -24,7 +24,7 @@
 //    UserService userService = UserServiceFactory.getUserService();
 //    User user = userService.getCurrentUser();
 %>
-<p>Logged in as <%= name %>. (You can <a href="/j_spring_security_logout">logout</a>.)</p>
+<p>Logged in as <%= name %>. | <a href="/secured/logOrderPerUser">Your order</a> | <a href="/j_spring_security_logout">logout</a></p>
 	
 			<input id="email" type="hidden" value=<%= name %>><br />
 

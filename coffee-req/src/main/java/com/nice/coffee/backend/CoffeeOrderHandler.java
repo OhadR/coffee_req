@@ -83,4 +83,9 @@ public class CoffeeOrderHandler {
 
         return finalizedOrder; //either a null or a group of totalOrderSize orders
     }
+
+	public UserOrder getOrderPerUser(String username) 
+	{
+		return ordersRepository.getUserEntry(username);
+	}
 }

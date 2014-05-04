@@ -1,6 +1,7 @@
 package com.nice.coffee.web;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.nice.coffee.email.MailSender;
 import com.nice.coffee.repository.OrdersRepository;
+import com.nice.coffee.types.TimedUserOrder;
 import com.nice.coffee.types.UserOrder;
 
 @Controller
@@ -49,7 +51,15 @@ public class TestController
 			HttpServletResponse response) throws Exception
 	{
 		log.info( "logging DB" );
-		ordersRepository.logRepositryContent();
+		List<TimedUserOrder> allOrders = ordersRepository.getAllUsersOrder();
+    	StringBuffer sb = new StringBuffer();
+		for(TimedUserOrder entry : allOrders)
+    	{
+    		sb.append(entry.getEmail() + " : " + entry.toString());
+    		sb.append("\n");
+    	}
+		log.info(sb.toString());
+
 	}
 
 }

@@ -48,14 +48,8 @@ public class OrdersRepositoryInMemoryImpl implements OrdersRepository {
     
     
 	@Override
-	public void logRepositryContent() 
-	{
-    	StringBuffer sb = new StringBuffer();
-		for(Entry<String, TimedUserOrder> entry : inMemoryCache.entrySet())
-    	{
-    		sb.append(entry.getKey() + " : " + entry.getValue());
-    		sb.append("\n");
-    	}
-		log.info(sb.toString());
+	public UserOrder getUserEntry(String username) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

@@ -77,4 +77,23 @@ public class WebController
 	}
 	*/
 
+	private String getAuthenticatedUsername()
+	{
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String name = auth.getName(); //get logged in username
+		log.info( "logged in user: " + name );
+		return name;
+	}
+	
+	
+	@RequestMapping("/secured/logOrderPerUser")	
+	protected void logOrderPerUser(
+			HttpServletResponse response) throws Exception
+	{
+		log.debug( "getAuthenticatedUser()" );
+		String username = getAuthenticatedUsername();
+		UserOrder userOrder = coffeeOrderHandler.getOrderPerUser(username);
+		response.getWriter().println(userOrder);
+	}
+
 }

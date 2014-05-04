@@ -19,5 +19,5 @@ public interface OrdersRepository
 
     public void removeUsersOrders(List<UserOrder> usersToRemove);
     
-    public void logRepositryContent();
+	public UserOrder getUserEntry(String username);
 }
