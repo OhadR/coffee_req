@@ -1,4 +1,9 @@
-<!DOCTYPE html>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="org.springframework.security.core.Authentication" %>
+<%@ page import="org.springframework.security.core.context.SecurityContextHolder" %>
+<%@ page import="org.springframework.stereotype.Controller" %>
+
+
 
 <html>
 <head>
@@ -8,7 +13,7 @@
 	<link href="style.css" rel="stylesheet" />
     <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
     <script src="http://cdn.kendostatic.com/2014.1.416/js/kendo.all.min.js"></script>
-	<script src="nespresso.js"></script>
+	<script src="./nespresso.js"></script>
 </head>
 <body>
 <div>	
