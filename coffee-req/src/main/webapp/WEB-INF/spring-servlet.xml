@@ -27,7 +27,10 @@
 	<sec:debug />
 	 -->
 	 
+	 <!-- if I want to secure HTMLs, I put them in 'secured_resources', and map it to
+	 'secured', where 'secured' is secured (in http) - ->
 	 <mvc:resources mapping="/secured/**" location="/secured_resources/" />
+	 -->
 	 
 	
 	<sec:http pattern="/login/**" security="none" />
@@ -38,6 +41,7 @@
 
 	<sec:http authentication-manager-ref="authenticationManager">
 	    <sec:intercept-url pattern="/secured/**" access="ROLE_USER" />
+	    	    
 		<sec:anonymous />
 
 		<sec:form-login login-page="/login/login.htm"
