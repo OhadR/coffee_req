@@ -24,11 +24,10 @@
 //    UserService userService = UserServiceFactory.getUserService();
 //    User user = userService.getCurrentUser();
 %>
-<p>Logged in as <%= name %>. (You can <a href="www.ohadr.com">logout</a>.)</p>
+<p>Logged in as <%= name %>. (You can <a href="/j_spring_security_logout">logout</a>.)</p>
 	
-	
-			<label>E-mail: </label><br />
-			<input id="email" class="k-textbox" type="text"><br />
+			<input id="email" type="hidden" value=<%= name %>><br />
+
 			<label class="emptyEmail">Please fill in a valid email</label><br /><br />
 			<button class="k-button" id="submit">Submit</button><br /><br />
 </div>

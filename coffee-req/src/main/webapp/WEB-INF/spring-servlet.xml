@@ -47,6 +47,7 @@
 		<sec:form-login login-page="/login/login.htm"
 			authentication-success-handler-ref="authenticationSuccessHandler"
 			authentication-failure-handler-ref="authenticationFailureHandler" />
+		<sec:logout logout-success-url="/secured/order.jsp" />
 
 	</sec:http>
 

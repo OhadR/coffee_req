@@ -64,6 +64,7 @@ public class WebController
 		response.getWriter().println("secured ping response: pong");
 	}
 
+	/*
 	@RequestMapping("/getAuthenticatedUser")	
 	protected void getAuthenticatedUser(
 			HttpServletResponse response) throws Exception
@@ -74,5 +75,6 @@ public class WebController
 		log.info( "logged in user: " + name );
 		response.getWriter().println(name);
 	}
+	*/
 
 }
