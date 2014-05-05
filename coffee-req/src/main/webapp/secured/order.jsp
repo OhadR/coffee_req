@@ -16,6 +16,11 @@
 	<script src="./nespresso.js"></script>
 </head>
 <body>
+	<div>
+		<img src="http://nicepresso.appspot.com/nicepresso_logo.jpg" width="256"
+		height="52" alt="NICE" title="NICE" border="0" /> 
+	</div> 
+
 <div>	
 <%
 	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
