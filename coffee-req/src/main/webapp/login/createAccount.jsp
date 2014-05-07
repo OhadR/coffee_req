@@ -21,7 +21,7 @@
 		method='POST'>
 		<table>
 			<tr>
-				<td>User:</td>
+				<td>E-mail:</td>
 				<td><input type='text' name='email' value=''></td>
 			</tr>
 			<tr>
