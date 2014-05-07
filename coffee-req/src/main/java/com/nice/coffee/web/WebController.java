@@ -1,5 +1,6 @@
 package com.nice.coffee.web;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.nice.coffee.backend.CoffeeOrderHandler;
@@ -12,6 +13,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.View;
+import org.springframework.web.servlet.view.RedirectView;
 
 import com.nice.coffee.types.UserOrder;
 
@@ -87,13 +90,25 @@ public class WebController
 	
 	
 	@RequestMapping("/secured/logOrderPerUser")	
-	protected void logOrderPerUser(
+	protected View logOrderPerUser(
+			HttpServletRequest request,
 			HttpServletResponse response) throws Exception
 	{
+		RedirectView rv = new RedirectView("/secured/user.jsp");
 		log.debug( "getAuthenticatedUser()" );
 		String username = getAuthenticatedUsername();
 		UserOrder userOrder = coffeeOrderHandler.getOrderPerUser(username);
-		response.getWriter().println(userOrder);
+		if(userOrder == null)
+		{
+			request.setAttribute("moshe", "moshe");
+			response.getWriter().println("no orders were found for you");
+		}
+		else
+		{
+			response.getWriter().println(userOrder);
+		}
+		
+		return rv;
 	}
 
 }

@@ -121,6 +121,10 @@ public class OrdersRepositoryImpl implements OrdersRepository
 		Entity entity = getUserEntity(username);
 		
 		UserOrder uo = null; 
+		if(entity != null)
+		{
+			uo = convertEntityToTimedUserOrder(entity);
+		}
 		
 		return uo;
 	}
