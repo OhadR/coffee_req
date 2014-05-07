@@ -65,40 +65,24 @@ public class OrdersRepositoryImpl implements OrdersRepository
 
 		List<TimedUserOrder> retVal = new ArrayList<TimedUserOrder>();
 		
-		StringBuffer sb = new StringBuffer();
-		for (Entity result : pq.asIterable()) {   
-			String username = (String) result.getProperty(USERNAME_NAME);   
-			Date date = (Date) result.getProperty(ORDER_DATE_NAME);
-			Map<String, Integer> order = new HashMap<String, Integer>();
-			//TODO: insert items from DS to order obj.
-			TimedUserOrder tuo = new TimedUserOrder(username, order, date);
+		for (Entity result : pq.asIterable()) 
+		{
+			TimedUserOrder tuo = convertEntityToTimedUserOrder(result);
+			
 			retVal.add(tuo);
-			sb.append(username + " : " + date );
 		}
 		
-		log.info( sb.toString() );
 
 		return retVal;
 	}
 
-	public void removeUsersOrders(List<UserOrder> usersToRemove) 
+	private TimedUserOrder convertEntityToTimedUserOrder(Entity entity)
 	{
-		for(UserOrder userOrder : usersToRemove)
-		{
-			Key userKey = KeyFactory.createKey(USER_DB_KIND, userOrder.getEmail());
-			log.info( "deleting user " + userOrder.getEmail());
-			datastore.delete(userKey);
-		}
-		
-	}
-	
-	@Override
-	public UserOrder getUserEntry(String username)
-	{
-		Entity entity = getUserEntity(username);
-
-		UserOrder retVal = new UserOrder();
-		retVal.setEmail(username);
+		StringBuffer sb = new StringBuffer();
+		String username = (String) entity.getProperty(USERNAME_NAME);
+		sb.append(username).append("\n");
+		Date date = (Date) entity.getProperty(ORDER_DATE_NAME);
+		sb.append(date.toString()).append("\n");
 		Map<String, Object> properties = entity.getProperties();
 		Map<String, Integer> order = new HashMap<String, Integer>();
 		for(Map.Entry<String, Object> entry : properties.entrySet())
@@ -111,11 +95,34 @@ public class OrdersRepositoryImpl implements OrdersRepository
 			Object valObj = entry.getValue();
 			Integer val = new Integer(valObj.toString());
 
-			log.info("putting " + entry.getKey() + " : " + val);
+			sb.append("putting " + entry.getKey() + " : " + val).append("\n");
 			order.put(entry.getKey(), val);
 		}
-		retVal.setOrder(order);
-		return retVal;
+		log.info(sb.toString());
+		TimedUserOrder tuo = new TimedUserOrder(username, order, date);
+
+		return tuo;
+	}
+	
+	public void removeUsersOrders(List<String> usersToRemove) 
+	{
+		for(String user : usersToRemove)
+		{
+			Key userKey = KeyFactory.createKey(USER_DB_KIND, user);
+			log.info( "deleting user " + user);
+			datastore.delete(userKey);
+		}
+		
+	}
+	
+	@Override
+	public UserOrder getUserEntry(String username)
+	{
+		Entity entity = getUserEntity(username);
+		
+		UserOrder uo = null; 
+		
+		return uo;
 	}
 
 	private Entity getUserEntity(String username)

@@ -40,7 +40,6 @@ public class CoffeeOrderHandler {
         if (finalizedOrder != null){
             log.info(MessageFormat.format("Publishing FinalizedOrder: {0}.", finalizedOrder));
             mailSender.sendFinalizedOrder(finalizedOrder);
-            ordersRepository.removeUsersOrders(finalizedOrder.getUserOrders());
         }
 
         log.info(MessageFormat.format("Done handling user order {0}.", updatedUserOrder));
@@ -53,39 +52,58 @@ public class CoffeeOrderHandler {
         return tryToFinalizeOrder(allUsersOrdersList, FIXED_TOTAL_ORDER_SIZE);
     }
 
-    private FinalizedOrder tryToFinalizeOrder(List<TimedUserOrder> ordersList, int totalOrderSize) {
-        if (ordersList.isEmpty() || totalOrderSize <= 0 ){
-            return null;
-        }
-        final UserOrder firstUserOrder = ordersList.get(0);
-        int firstOrderSize = firstUserOrder.getTotalSize();
-        if (totalOrderSize == firstOrderSize){
-            log.info(MessageFormat.format("Creating group and adding user {0} ordering {1} coffee pieces.",
-                    firstUserOrder.getEmail(), firstOrderSize));
-
-            return new FinalizedOrder(new ArrayList<UserOrder>() {{add(firstUserOrder);}});
-        }
-
-        //try to find group that can fit the first order
-        List<TimedUserOrder> listWithoutFirst = ordersList.subList(1, ordersList.size());
-        FinalizedOrder finalizedOrder = tryToFinalizeOrder(listWithoutFirst, totalOrderSize - firstOrderSize);
-        //check if found group for the first order
-        if (finalizedOrder != null){
-            log.info(MessageFormat.format("Adding user {0} ordering {1} coffee pieces.",
-                    firstUserOrder.getEmail(), firstOrderSize));
-            //add the first order to this group.
-            finalizedOrder.getUserOrders().add(firstUserOrder);
-        }
-        else{
-            //try to find finalized group of orders, without the first order
-            finalizedOrder = tryToFinalizeOrder(listWithoutFirst, totalOrderSize);
-        }
-
-        return finalizedOrder; //either a null or a group of totalOrderSize orders
+    private FinalizedOrder tryToFinalizeOrder(List<TimedUserOrder> ordersList, int totalOrderSize) 
+    {
+    	int totalSize = 0;
+    	int totalNumerOfSleeves = getTotalNumerOfSleeves(ordersList);
+    	log.info("totalNumerOfSleeves: "+ totalNumerOfSleeves);
+    	if(totalNumerOfSleeves < totalOrderSize)
+    	{
+    		return null;
+    	}
+    	
+    	List<UserOrder> finalizedOrder = new ArrayList<>();
+    	for(TimedUserOrder tuo : ordersList)
+    	{
+    		//delete this item from the DB, and add it to the "finalized order" list:
+    		List<String> userToRemove = new ArrayList<>();
+    		userToRemove.add(tuo.getEmail()) ;
+    		ordersRepository.removeUsersOrders( userToRemove );
+    		finalizedOrder.add(tuo);
+    		
+    		totalSize += tuo.getTotalSize();
+    		
+    		if(totalSize >= totalOrderSize)
+    		{
+    			//we can order!
+    			break;
+    		}
+    	}
+    	
+    	return new FinalizedOrder(finalizedOrder);
     }
 
+    	
 	public UserOrder getOrderPerUser(String username) 
 	{
 		return ordersRepository.getUserEntry(username);
 	}
+	
+	/**
+	 * get total number of "sleeves" to order. instead of iterating "all" the DB each time, 
+	 * we hold the total number so we can easily know whether we are ready to make a purchase from 
+	 * the coffee supplier
+	 * @param ordersList 
+	 */
+	public int getTotalNumerOfSleeves(List<TimedUserOrder> ordersList)
+	{
+		int totalSize = 0;
+		for(TimedUserOrder tuo : ordersList)
+		{
+			totalSize += tuo.getTotalSize();
+			
+		}
+		return totalSize;		
+	}
+
 }

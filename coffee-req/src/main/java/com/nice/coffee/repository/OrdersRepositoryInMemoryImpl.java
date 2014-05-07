@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 import java.util.*;
 import java.util.Map.Entry;
 
+@Deprecated
 public class OrdersRepositoryInMemoryImpl implements OrdersRepository {
 	private static Logger log = Logger.getLogger(OrdersRepositoryInMemoryImpl.class);
     final private static Map<String, TimedUserOrder> inMemoryCache = new HashMap<String, TimedUserOrder>();
@@ -40,9 +41,9 @@ public class OrdersRepositoryInMemoryImpl implements OrdersRepository {
     }
 
     @Override
-    public void removeUsersOrders(List<UserOrder> usersToRemove) {
-        for (UserOrder userOrder : usersToRemove) {
-            inMemoryCache.remove(userOrder.getEmail());
+    public void removeUsersOrders(List<String> usersToRemove) {
+        for (String user : usersToRemove) {
+            inMemoryCache.remove(user);
         }
     }
     

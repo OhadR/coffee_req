@@ -15,9 +15,9 @@ public interface OrdersRepository
 	 */
 	public UserOrder updateUserOrder(UserOrder userOrder);
 	
-	public List<TimedUserOrder> getAllUsersOrder();
-
-    public void removeUsersOrders(List<UserOrder> usersToRemove);
+    public void removeUsersOrders(List<String> usersToRemove);
     
 	public UserOrder getUserEntry(String username);
+	
+	public List<TimedUserOrder> getAllUsersOrder();
 }
