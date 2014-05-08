@@ -8,6 +8,11 @@
 <body onload='document.f.email.focus();InitCreateAccount();'>
 	<h3>Create Account</h3>
 
+	<div>
+		<img src="http://nicepresso.appspot.com/nicepresso_logo.jpg" width="256"
+		height="52" alt="NICE" title="NICE" border="0" /> 
+	</div> 
+
 	<%   
 	    if ( null != request.getParameter("err_msg") ) {
 	%>	
