@@ -33,7 +33,8 @@
 	
 			<input id="email" type="hidden" value=<%= name %>><br />
 
-			<button class="k-button" id="submit">Submit</button><br /><br />
+			<p><%= request.getAttribute("data") %></p>
+			<a href="/secured/removeUserOrder">reset your order</a>
 </div>
 		
 </body>

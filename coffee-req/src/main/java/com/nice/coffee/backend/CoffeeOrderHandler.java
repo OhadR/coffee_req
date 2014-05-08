@@ -106,4 +106,11 @@ public class CoffeeOrderHandler {
 		return totalSize;		
 	}
 
+	public void removeUserOrder(String username)
+	{
+		List<String> userToRemove = new ArrayList<>();
+		userToRemove.add(username) ;
+		ordersRepository.removeUsersOrders(userToRemove);
+	}
+
 }

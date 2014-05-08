@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.View;
+import org.springframework.web.servlet.view.InternalResourceView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.nice.coffee.types.UserOrder;
@@ -91,24 +92,34 @@ public class WebController
 	
 	@RequestMapping("/secured/logOrderPerUser")	
 	protected View logOrderPerUser(
-			HttpServletRequest request,
-			HttpServletResponse response) throws Exception
+			HttpServletRequest request) throws Exception
 	{
-		RedirectView rv = new RedirectView("/secured/user.jsp");
+		InternalResourceView irv = new InternalResourceView("/secured/user.jsp");
 		log.debug( "getAuthenticatedUser()" );
 		String username = getAuthenticatedUsername();
 		UserOrder userOrder = coffeeOrderHandler.getOrderPerUser(username);
 		if(userOrder == null)
 		{
-			request.setAttribute("moshe", "moshe");
-			response.getWriter().println("no orders were found for you");
+			request.setAttribute("data", "no orders were found for you");
 		}
 		else
 		{
-			response.getWriter().println(userOrder);
+			request.setAttribute("data", userOrder);
 		}
-		
-		return rv;
+
+		return irv;
+	}
+	
+	@RequestMapping("/secured/removeUserOrder")	
+	protected View removeUserOrder(
+			HttpServletRequest request) throws Exception
+	{
+		InternalResourceView irv = new InternalResourceView("/secured/order.jsp");
+		String username = getAuthenticatedUsername();
+		log.debug( "removeUserOrder() for user " + username );
+		coffeeOrderHandler.removeUserOrder(username);
+
+		return irv;
 	}
 
 }
