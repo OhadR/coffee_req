@@ -95,10 +95,22 @@ public class CoffeeOrderHandler {
 	 * the coffee supplier
 	 * @param ordersList 
 	 */
-	public int getTotalNumerOfSleeves(List<TimedUserOrder> ordersList)
+	private int getTotalNumerOfSleeves(List<TimedUserOrder> ordersList)
 	{
 		int totalSize = 0;
 		for(TimedUserOrder tuo : ordersList)
+		{
+			totalSize += tuo.getTotalSize();
+			
+		}
+		return totalSize;		
+	}
+
+	public int getTotalNumberOfSleevesInDB()
+	{
+        List<TimedUserOrder> allUsersOrdersList = ordersRepository.getAllUsersOrder();
+		int totalSize = 0;
+		for(TimedUserOrder tuo : allUsersOrdersList)
 		{
 			totalSize += tuo.getTotalSize();
 			

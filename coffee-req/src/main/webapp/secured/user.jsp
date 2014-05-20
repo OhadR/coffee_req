@@ -34,6 +34,9 @@
 			<input id="email" type="hidden" value=<%= name %>><br />
 
 			<p><%= request.getAttribute("data") %></p>
+			<br>
+			<p>Total number of sleeves in DB: <%= request.getAttribute("totalNumberOfSleevesInDB") %></p>
+			
 			<a href="/secured/removeUserOrder">reset your order</a>
 </div>
 		

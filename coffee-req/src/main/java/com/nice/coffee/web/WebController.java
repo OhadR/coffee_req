@@ -97,6 +97,10 @@ public class WebController
 		InternalResourceView irv = new InternalResourceView("/secured/user.jsp");
 		log.debug( "getAuthenticatedUser()" );
 		String username = getAuthenticatedUsername();
+		
+		int totalNumberOfSleevesInDB = coffeeOrderHandler.getTotalNumberOfSleevesInDB();
+		request.setAttribute("totalNumberOfSleevesInDB", totalNumberOfSleevesInDB);
+
 		UserOrder userOrder = coffeeOrderHandler.getOrderPerUser(username);
 		if(userOrder == null)
 		{
