@@ -29,7 +29,7 @@
 	    <dependency>
 			<groupId>com.ohadr</groupId>
 			<artifactId>authentication-flows</artifactId>
-			<version>1.5.1-SNAPSHOT</version>
+			<version>1.6.0-RELEASE</version>
 			<exclusions>
 			    <exclusion>
 					<groupId>javax.mail</groupId>
