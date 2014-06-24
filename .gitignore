@@ -1,0 +1,10 @@
+*.name
+*.container
+*.component
+*.prefs
+*.jsdtscope
+coffee-req/.settings/org.eclipse.wst.common.project.facet.core.xml
+coffee-req/.project
+coffee-req/.classpath
+README.md.bak
+coffee-req/.classpath.bak
